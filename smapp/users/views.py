@@ -6,6 +6,10 @@ from .forms import LoginForm
 
 # Create your views here.
 @login_required
+def index(request):
+    return render(request, 'users/index.html')
+
+@login_required
 def user_logout(request):
     logout(request)
     return render(request, 'users/logout.html', {})
