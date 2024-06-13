@@ -4,11 +4,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserRegistartionForm, Profile, UserEditForm, ProfileEditForm
 from .models import Profile
+from posts.models import Post
 
 # Create your views here.
 @login_required
 def index(request):
-    return render(request, 'users/index.html')
+    current_user = request.user
+    posts = Post.objects.filter(user=current_user)
+    return render(request, 'users/index.html', {'posts':posts})
 
 @login_required
 def user_logout(request):
